@@ -17,26 +17,39 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="flex border-b p-5 justify-between">
-      <Link href="/" className="block">
-        <Image src="/logo.svg" width={100} height={100} alt="SpendWise" />
-      </Link>
-      <div className="flex flex-row items-center justify-center gap-2">
-        {mounted ? (
-          <>
-            <HugeiconsIcon icon={Sun01Icon} size={16} />
-            <Switch
-              className="cursor-pointer"
-              checked={theme === "dark"}
-              onCheckedChange={(checked) =>
-                setTheme(checked ? "dark" : "light")
-              }
-            />
-            <HugeiconsIcon icon={Moon02Icon} size={16} />
-          </>
-        ) : (
-          <div className="w-20" /> /* Placeholder to prevent layout shift */
-        )}
+    <header className="border-b">
+      <div className="mx-auto flex p-5 justify-between items-center">
+        <Link href="/" className="block">
+          {mounted ? (
+            <>
+              <Image
+                src={theme === "dark" ? "./logo-light.svg" : "./logo-dark.svg"}
+                width={100}
+                height={100}
+                alt="SpendWise"
+              />
+            </>
+          ) : (
+            <div style={{ width: 100, height: 100 }} />
+          )}
+        </Link>
+        <div className="flex flex-row items-center justify-center gap-2">
+          {mounted ? (
+            <>
+              <HugeiconsIcon icon={Sun01Icon} size={16} />
+              <Switch
+                className="cursor-pointer"
+                checked={theme === "dark"}
+                onCheckedChange={(checked) =>
+                  setTheme(checked ? "dark" : "light")
+                }
+              />
+              <HugeiconsIcon icon={Moon02Icon} size={16} />
+            </>
+          ) : (
+            <div className="w-20" /> /* Placeholder to prevent layout shift */
+          )}
+        </div>
       </div>
     </header>
   );

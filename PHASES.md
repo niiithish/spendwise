@@ -4,14 +4,14 @@ This roadmap breaks down the `REQUIREMENTS.md` into manageable phases. Each phas
 
 ## 📍 Phase 1: Setup & Static UI (The Skeleton)
 **Goal:** Get the infrastructure ready and build the visual shell.
-- [ ] **Initialize Project:** Set up Nextjs with TypeScript.
-- [ ] **Styling Setup:** Install Tailwind CSS and `shadcn/ui`.
-- [ ] **Component Structure:** Create the file structure as defined:
+- [X] **Initialize Project:** Set up Nextjs with TypeScript.
+- [X] **Styling Setup:** Install Tailwind CSS and `shadcn/ui`.
+- [X] **Component Structure:** Create the file structure as defined:
     - `components/ExpenseForm`
     - `components/ExpenseList`
     - `components/SummaryCards`
 - [ ] **Static UI:** Build the look of the app using shadcn primitives (Card, Button, Input) with dummy data.
-- [ ] **Theme:** Implement the `ThemeProvider` for Dark/Light mode toggle.
+- [X] **Theme:** Implement the `ThemeProvider` for Dark/Light mode toggle.
 
 ## ⚡ Phase 2: Core Logic & CRUD (The Heart)
 **Goal:** Make it work. Handle state, forms, and updates.

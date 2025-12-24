@@ -1,5 +1,9 @@
-import { ComponentExample } from "@/components/component-example";
+import SummaryCard from "@/components/summary-card";
 
 export default function Page() {
-    return <ComponentExample />;
+  return (
+    <div className="p-10">
+      <SummaryCard />
+    </div>
+  );
 }
