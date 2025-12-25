@@ -10,7 +10,7 @@ This roadmap breaks down the `REQUIREMENTS.md` into manageable phases. Each phas
     - `components/ExpenseForm`
     - `components/ExpenseList`
     - `components/SummaryCards`
-- [ ] **Static UI:** Build the look of the app using shadcn primitives (Card, Button, Input) with dummy data.
+- [X] **Static UI:** Build the look of the app using shadcn primitives (Card, Button, Input) with dummy data.
 - [X] **Theme:** Implement the `ThemeProvider` for Dark/Light mode toggle.
 
 ## ⚡ Phase 2: Core Logic & CRUD (The Heart)

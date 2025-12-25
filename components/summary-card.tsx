@@ -1,12 +1,4 @@
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
 import { Badge } from "./ui/badge";
 import {
   MoneyReceive01Icon,
@@ -16,38 +8,42 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react";
 
 const SummaryCard = () => {
+  const dummyData = [
+    {
+      title: "Total Income",
+      icons: MoneyReceive01Icon,
+      value: "$3000",
+      badgeValue: "2%",
+    },
+    {
+      title: "Total Spent",
+      icons: MoneySendCircleIcon,
+      value: "$3000",
+      badgeValue: "2%",
+    },
+    {
+      title: "Total Saved",
+      icons: SaveMoneyDollarIcon,
+      value: "$3000",
+      badgeValue: "2%",
+    },
+  ];
   return (
     <div className="flex justify-between gap-10">
-      <Card className="w-full max-w-xs gap-2">
-        <CardHeader className="flex flex-row justify-between text-sm font-medium text-muted-foreground">
-          Total Income
-          <HugeiconsIcon className="text-primary" icon={MoneyReceive01Icon} />
-        </CardHeader>
-        <CardContent className="font-bold text-2xl">$3000</CardContent>
-        <CardFooter className="gap-2">
-          <Badge>2%</Badge> more than previous month
-        </CardFooter>
-      </Card>
-      <Card className="w-full max-w-xs gap-2">
-        <CardHeader className="flex flex-row justify-between text-sm font-medium text-muted-foreground">
-          Total Spent
-          <HugeiconsIcon className="text-primary" icon={MoneySendCircleIcon} />
-        </CardHeader>
-        <CardContent className="font-bold text-2xl">$3000</CardContent>
-        <CardFooter className="gap-2">
-          <Badge>2%</Badge> more than previous month
-        </CardFooter>
-      </Card>
-      <Card className="w-full max-w-xs gap-2">
-        <CardHeader className="flex flex-row justify-between text-sm font-medium text-muted-foreground">
-          Total Savings
-          <HugeiconsIcon className="text-primary" icon={SaveMoneyDollarIcon} />
-        </CardHeader>
-        <CardContent className="font-bold text-2xl">$3000</CardContent>
-        <CardFooter className="gap-2">
-          <Badge>2%</Badge> more than previous month
-        </CardFooter>
-      </Card>
+      {dummyData.map(({ title, icons, value, badgeValue }) => {
+        return (
+          <Card key={title} className="w-full max-w-xs gap-2">
+            <CardHeader className="flex flex-row justify-between text-sm font-medium text-muted-foreground">
+              {title}
+              <HugeiconsIcon className="text-primary" icon={icons} />
+            </CardHeader>
+            <CardContent className="font-bold text-2xl">{value}</CardContent>
+            <CardFooter className="gap-2">
+              <Badge>{badgeValue}</Badge> more than previous month
+            </CardFooter>
+          </Card>
+        );
+      })}
     </div>
   );
 };
