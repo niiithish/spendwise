@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Table,
   TableHeader,
@@ -8,26 +10,37 @@ import {
 } from "./ui/table";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import { ExpenseFormDialog } from "./expense-form";
+import { useEffect, useState } from "react";
 
-const tableHead = ["id", "Title", "Category", "Name", "Date", "Action"];
-const tableContent = [
-  { id: "1", title: "Milk", category: "Essential", name: "A Milk", date: "1" },
-  {
-    id: "2",
-    title: "Bread",
-    category: "Essential",
-    name: "A Bread",
-    date: "1",
-  },
-  { id: "3", title: "Chips", category: "Junk", name: "A Chips", date: "1" },
-];
+const tableHead = ["id", "Title", "Category", "Name", "Date"];
+
+export interface Expense {
+  id: string;
+  title: string;
+  category: string;
+  name: string;
+  date: string;
+}
 
 const ExpenseList = () => {
+  const [expense, setExpense] = useState<Expense[]>(() => {
+    const savedExpense = localStorage.getItem("expenseList");
+    return savedExpense ? JSON.parse(savedExpense) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("expenseList", JSON.stringify(expense));
+  }, [expense]);
+
+  const addExpense = (newExpense: Expense) => {
+    setExpense((prev) => [...prev, newExpense]);
+  };
+
   return (
     <>
       <Card>
         <CardHeader className="justify-end">
-          <ExpenseFormDialog />
+          <ExpenseFormDialog onAddExpense={addExpense} />
         </CardHeader>
         <CardContent>
           <Table>
@@ -39,14 +52,13 @@ const ExpenseList = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {tableContent.map((content) => (
+              {expense.map((content) => (
                 <TableRow key={content.id}>
                   <TableCell>{content.id}</TableCell>
                   <TableCell>{content.title}</TableCell>
                   <TableCell>{content.category}</TableCell>
                   <TableCell>{content.name}</TableCell>
                   <TableCell>{content.date}</TableCell>
-                  <TableCell></TableCell>
                 </TableRow>
               ))}
             </TableBody>
