@@ -10,9 +10,7 @@ import {
 } from "./ui/table";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import { ExpenseFormDialog } from "./expense-form";
-import { useEffect, useState } from "react";
-
-const tableHead = ["id", "Title", "Category", "Name", "Date"];
+import { create } from "zustand";
 
 export interface Expense {
   id: string;
@@ -22,19 +20,22 @@ export interface Expense {
   date: string;
 }
 
+interface ExpenseStore {
+  expenses: Expense[];
+  addExpense: (newExpense: Expense) => void;
+}
+
+export const useExpenseStore = create<ExpenseStore>((set) => ({
+  expenses: [],
+  addExpense: (newExpense) =>
+    set((state) => ({ expenses: [...state.expenses, newExpense] })),
+}));
+
+const tableHead = ["id", "Title", "Category", "Name", "Date"];
+
 const ExpenseList = () => {
-  const [expense, setExpense] = useState<Expense[]>(() => {
-    const savedExpense = localStorage.getItem("expenseList");
-    return savedExpense ? JSON.parse(savedExpense) : [];
-  });
-
-  useEffect(() => {
-    localStorage.setItem("expenseList", JSON.stringify(expense));
-  }, [expense]);
-
-  const addExpense = (newExpense: Expense) => {
-    setExpense((prev) => [...prev, newExpense]);
-  };
+  const expenses = useExpenseStore((state) => state.expenses);
+  const addExpense = useExpenseStore((state) => state.addExpense);
 
   return (
     <>
@@ -46,19 +47,19 @@ const ExpenseList = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                {tableHead.map((content) => {
-                  return <TableHead key={content}>{content}</TableHead>;
-                })}
+                {tableHead.map((content) => (
+                  <TableHead key={content}>{content}</TableHead>
+                ))}
               </TableRow>
             </TableHeader>
             <TableBody>
-              {expense.map((content) => (
-                <TableRow key={content.id}>
-                  <TableCell>{content.id}</TableCell>
-                  <TableCell>{content.title}</TableCell>
-                  <TableCell>{content.category}</TableCell>
-                  <TableCell>{content.name}</TableCell>
-                  <TableCell>{content.date}</TableCell>
+              {expenses.map((expense) => (
+                <TableRow key={expense.id}>
+                  <TableCell>{expense.id}</TableCell>
+                  <TableCell>{expense.title}</TableCell>
+                  <TableCell>{expense.category}</TableCell>
+                  <TableCell>{expense.name}</TableCell>
+                  <TableCell>{expense.date}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
